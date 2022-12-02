@@ -1,11 +1,19 @@
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import "../home.scss";
+
 const HomeFunctionalComponent = () => {
   const [listBeers, setListBeers] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://api.punkapi.com/v2/beers?page=1&per_page=20")
-      .then((result) => setListBeers(result.data));
-  }, []);
+      .then((data) => {
+        const beers = data.data;
+
+        setListBeers(beers);
+      });
+  });
 
   return (
     <div className="container-home">
@@ -26,4 +34,5 @@ const HomeFunctionalComponent = () => {
     </div>
   );
 };
+
 export default HomeFunctionalComponent;
